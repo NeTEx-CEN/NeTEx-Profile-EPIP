@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Note that this simplified XSD does not in any way replace the full NeTEx XSD. It is not guaranteed that the XSD is free from errors.-->
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" version="1.1.1" id="NeTEx_publication_EPIP">
+	<xsd:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="gml_combo_v3_2_1_simplified.xsd"/>
+	<xsd:include schemaLocation="_content_NeTEx_EPIP.xsd"/>
+	<xsd:annotation>
+		<xsd:documentation>The intention of this XSD is to provide a simplified schema that represents a subset of the full NeTEx-schema covering the European Passenger Information Profile.
+		This file should not be interpreted as being normative. Neither does this XSD replace the offical NeTEx XSD schemas. It should be used in addition to the offical NeTEx XSD schemas and not instead of.
+		
+		The official NeTEx XSD schema and basic examples are available at Github https://github.com/NeTEx-CEN/NeTEx  (note that this is the only source for NeTEx latest official schema) 
+		Note that parts of the content in this file consists of extracts from files in the official NeTEx XSD schema and therefore are covered by Copyright CEN, Crown Copyright 2009-2020.
+		Any such copyrights still apply.
+
+        Update v1.1.1: vehicleTypes added to ResourceFrame		
+</xsd:documentation>
+	</xsd:annotation>
+	<!-- ======================================================================= -->
+	<xsd:element name="PublicationDelivery" type="PublicationDeliveryStructure">
+		<xsd:annotation>
+			<xsd:documentation>A set of NeTEx objects as assembled by a publication request or other service. Provides a general purpose wrapper for NeTEx data content.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- ======================================================================= -->
+	<xsd:element name="ResourceFrame" type="ResourceFrame_VersionStructure">
+		<xsd:annotation>
+			<xsd:documentation>A coherent set of reference values for TYPE OF VALUEs , ORGANISATIONs, VEHICLE TYPEs etc that have a common validity, as specified by a set of frame VALIDITY CONDITIONs. Used to define common resources that will be referenced by other types of FRAME.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ServiceCalendarFrame" type="ServiceCalendarFrame_VersionStructure">
+		<xsd:annotation>
+			<xsd:documentation>A SERVICE CALENDAR. A coherent set of OPERATING DAYS and DAY TYPES comprising a Calendar.  that may be used to state the temporal VALIDITY of other NeTEx entities such as Timetables, STOP PLACEs, etc. Covers a PERIOD with a collection of assignments of OPERATING DAYS to DAY TYPES.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ServiceFrame" type="ServiceFrame_VersionStructure">
+		<xsd:annotation>
+			<xsd:documentation>A coherent set of Service data to which the same frame VALIDITY CONDITIONs have been assigned.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SiteFrame" type="SiteFrame_VersionStructure">
+		<xsd:annotation>
+			<xsd:documentation>A coherent set of SITE data to which the same frame VALIDITY CONDITIONs have been assigned.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TimetableFrame" type="TimetableFrame_VersionStructure">
+		<xsd:annotation>
+			<xsd:documentation>A coherent set of timetable data (VEHICLE JOURNEYs and BLOCKs) to which the same VALIDITY CONDITIONs have been assigned.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- ======================================================================= -->
+	<xsd:element name="CompositeFrame" type="CompositeFrame_VersionStructure">
+		<xsd:annotation>
+			<xsd:documentation>A container VERSION FRAME that groups a set of content VERSION FRAMsE to which the same VALIDITY CONDITIONs have been assigned.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="dataObjects" type="dataObjectsStructure"/>
+	<xsd:element name="frames" type="frames_RelStructure"/>
+	<xsd:complexType name="CompositeFrame_VersionStructure">
+		<xsd:sequence>
+			<xsd:group ref="VersionFrameGroup" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="frames" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="DataManagedObjectAttributeGroup"/>
+	</xsd:complexType>
+	<xsd:complexType name="PublicationDeliveryStructure">
+		<xsd:sequence>
+			<xsd:element ref="PublicationTimestamp"/>
+			<xsd:element ref="ParticipantRef"/>
+			<xsd:element name="PublicationRequest" type="PublicationRequestStructure" minOccurs="0"/>
+			<xsd:element ref="Description" minOccurs="0"/>
+			<xsd:element ref="dataObjects" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="version" type="xsd:NMTOKEN" default="1.0"/>
+	</xsd:complexType>
+	<xsd:complexType name="dataObjectsStructure">
+		<xsd:annotation>
+			<xsd:documentation>Type for a list of objects.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:choice maxOccurs="unbounded">
+			<xsd:element ref="CompositeFrame" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>EPIP: Shall contain only specific frames of type
+‘EU_PI_COMMON’, ‘EU_PI_STOP,’
+‘EU_PI_CALENDAR’, ‘EU_PI_NETWORK’ and
+‘EU_PI_TIMETABLE ‘.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="ResourceFrame"/>
+			<xsd:element ref="ServiceCalendarFrame"/>
+			<xsd:element ref="SiteFrame"/>
+			<xsd:element ref="ServiceFrame"/>
+			<xsd:element ref="TimetableFrame"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="frames_RelStructure">
+		<xsd:choice maxOccurs="unbounded">
+			<xsd:element ref="ResourceFrame"/>
+			<xsd:element ref="ServiceCalendarFrame"/>
+			<xsd:element ref="SiteFrame"/>
+			<xsd:element ref="ServiceFrame"/>
+			<xsd:element ref="TimetableFrame"/>
+		</xsd:choice>
+		<xsd:attributeGroup ref="ModificationSetAttributeGroup"/>
+	</xsd:complexType>
+</xsd:schema>
