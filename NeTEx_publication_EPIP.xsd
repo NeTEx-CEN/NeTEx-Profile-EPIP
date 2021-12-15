@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--Note that this simplified XSD does not in any way replace the full NeTEx XSD. It is not guaranteed that the XSD is free from errors.-->
-<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" version="1.1.1" id="NeTEx_publication_EPIP">
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" version="1.1.2" id="NeTEx_publication_EPIP">
 	<xsd:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="gml_combo_v3_2_1_simplified.xsd"/>
 	<xsd:include schemaLocation="_content_NeTEx_EPIP.xsd"/>
 	<xsd:annotation>
@@ -8,10 +8,11 @@
 		This file should not be interpreted as being normative. Neither does this XSD replace the offical NeTEx XSD schemas. It should be used in addition to the offical NeTEx XSD schemas and not instead of.
 		
 		The official NeTEx XSD schema and basic examples are available at Github https://github.com/NeTEx-CEN/NeTEx  (note that this is the only source for NeTEx latest official schema) 
-		Note that parts of the content in this file consists of extracts from files in the official NeTEx XSD schema and therefore are covered by Copyright CEN, Crown Copyright 2009-2020.
+		Note that parts of the content in this file consists of extracts from files in the official NeTEx XSD schema and therefore are covered by Copyright CEN, Crown Copyright 2009-2021.
 		Any such copyrights still apply.	
 
-        Update v1.1.1: vehicleTypes added to ResourceFrame		
+        Update v1.1.1: vehicleTypes added to ResourceFrame	
+		Update v1.1.2: Added PurposeOfGrouping to TypeOfValueSubstitutionGroup,  added TrainRef	as possible VehicleTypeRef option in ServiceJourneyGroup		
 </xsd:documentation>
 	</xsd:annotation>
 	<!-- ======================================================================= -->
