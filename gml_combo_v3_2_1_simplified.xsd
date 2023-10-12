@@ -1,266 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://www.opengis.net/gml/3.2" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" version="1.0" id="gml_combo_v3_2_1_simplified">
+<!--Note that this simplified XSD does not in any way replace the full NeTEx XSD. It is not guaranteed that the XSD is free from errors.-->
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" version="1.1.2" id="NeTEx_publication_EPIP">
+	<xsd:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="gml_combo_v3_2_1_simplified.xsd"/>
+	<xsd:include schemaLocation="_content_NeTEx_EPIP.xsd"/>
 	<xsd:annotation>
-		<xsd:appinfo source="urn:x-ogc:specification:gml:schema-xsd:basicTypes:3.2.1">basicTypes.xsd</xsd:appinfo>
-		<xsd:documentation>
-		----------------------------
-			This is a simplified file partly based on the combined content of
-			gml\basicTypes.xsd
-			gml\geometryBasic0d1d-extract-v3_2_1.xsd
-			gml\gmlBase-extract-v3_2_1.xsd
-			gml\gmlBasic2d-extract-v3_2_1-.xsd
-		as one file. 
-		Note that xmlns:xlink="http://www.w3.org/1999/xlink" is not included in the schema element above.
-
-		This file should not be interpreted as being normative.
-		----------------------------				
+		<xsd:documentation>The intention of this XSD is to provide a simplified schema that represents a subset of the full NeTEx-schema covering the European Passenger Information Profile.
+		This file should not be interpreted as being normative. Neither does this XSD replace the offical NeTEx XSD schemas. It should be used in addition to the offical NeTEx XSD schemas and not instead of.
 		
-		See ISO/DIS 19136 8.2.
-W3C XML Schema provides a set of built-in "simple" types which define methods for representing values as literals without internal markup.  These are described in W3C XML Schema Part 2:2001.  Because GML is an XML encoding in which instances are described using XML Schema, these simple types shall be used as far as possible and practical for the representation of data types.  W3C XML Schema also provides methods for defining 
--	new simple types by restriction and combination of the built-in types, and 
--	complex types, with simple content, but which also have XML attributes.  
-In many places where a suitable built-in simple type is not available, simple content types derived using the XML Schema mechanisms are used for the representation of data types in GML.  
-A set of these simple content types that are required by several GML components are defined in the basicTypes schema, as well as some elements based on them. These are primarily based around components needed to record amounts, counts, flags and terms, together with support for exceptions or null values.
+		The official NeTEx XSD schema and basic examples are available at Github https://github.com/NeTEx-CEN/NeTEx  (note that this is the only source for NeTEx latest official schema) 
+		Note that parts of the content in this file consists of extracts from files in the official NeTEx XSD schema and therefore are covered by Copyright CEN, Crown Copyright 2009-2021.
+		Any such copyrights still apply.
 
-GML is an OGC Standard. 
-Copyright (c) 2007, 2010, 2016, 2018 Open Geospatial Consortium. 
-Copyright (c) 2007,2010 Open Geospatial Consortium, Inc. All Rights Reserved.
-To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
-
-See also https://www.ogc.org/standards/gml and http://schemas.opengis.net/gml/3.2.1/
-
-		</xsd:documentation>
+        Update v1.1.1: vehicleTypes added to ResourceFrame
+		Update v1.1.2: Added PurposeOfGrouping to TypeOfValueSubstitutionGroup,  added TrainRef	as possible VehicleTypeRef option in ServiceJourneyGroup
+</xsd:documentation>
 	</xsd:annotation>
-	<!-- ================================================================================================================================== -->
-	<!-- ================================================================================================================================== -->
-	<xsd:element name="pos" type="gml:T_pos"/>
-	<xsd:element name="posList" type="gml:T_posList"/>
-	<xsd:element name="LineString" type="gml:T_LineString"/>
-	<xsd:element name="Polygon" type="gml:T_Polygon">
+	<!-- ======================================================================= -->
+	<xsd:element name="PublicationDelivery" type="PublicationDeliveryStructure">
 		<xsd:annotation>
-			<xsd:documentation>A Polygon is a special surface that is defined by a single surface patch (see D.3.6). The boundary of this patch is coplanar and the polygon uses planar interpolation in its interior. 
-The elements exterior and interior describe the surface boundary of the polygon.</xsd:documentation>
+			<xsd:documentation>A set of NeTEx objects as assembled by a publication request or other service. Provides a general purpose wrapper for NeTEx data content.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<!-- ================================================================================================================================== -->
-	<!-- ================================================================================================================================== -->
-	<xsd:element name="Point" type="gml:T_Point">
+	<!-- ======================================================================= -->
+	<xsd:element name="ResourceFrame" type="ResourceFrame_VersionStructure">
 		<xsd:annotation>
-			<xsd:documentation>A Point is defined by a single coordinate tuple. The direct position of a point is specified by the pos element which is of type DirectPositionType.</xsd:documentation>
+			<xsd:documentation>A coherent set of reference values for TYPE OF VALUEs , ORGANISATIONs, VEHICLE TYPEs etc that have a common validity, as specified by a set of frame VALIDITY CONDITIONs. Used to define common resources that will be referenced by other types of FRAME.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="LinearRing" type="gml:T_LinearRing">
+	<xsd:element name="ServiceCalendarFrame" type="ServiceCalendarFrame_VersionStructure">
 		<xsd:annotation>
-			<xsd:documentation>A LinearRing is defined by four or more coordinate tuples, with linear interpolation between them; the first and last coordinates shall be coincident. The number of direct positions in the list shall be at least four.</xsd:documentation>
+			<xsd:documentation>A SERVICE CALENDAR. A coherent set of OPERATING DAYS and DAY TYPES comprising a Calendar.  that may be used to state the temporal VALIDITY of other NeTEx entities such as Timetables, STOP PLACEs, etc. Covers a PERIOD with a collection of assignments of OPERATING DAYS to DAY TYPES.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="exterior" type="gml:T_exterior">
+	<xsd:element name="ServiceFrame" type="ServiceFrame_VersionStructure">
 		<xsd:annotation>
-			<xsd:documentation>A boundary of a surface consists of a number of rings. In the normal 2D case, one of these rings is distinguished as being the exterior boundary. In a general manifold this is not always possible, in which case all boundaries shall be listed as interior boundaries, and the exterior will be empty.</xsd:documentation>
+			<xsd:documentation>A coherent set of Service data to which the same frame VALIDITY CONDITIONs have been assigned.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="interior" type="gml:T_interior">
+	<xsd:element name="SiteFrame" type="SiteFrame_VersionStructure">
 		<xsd:annotation>
-			<xsd:documentation>A boundary of a surface consists of a number of rings. The "interior" rings separate the surface / surface patch from the area enclosed by the rings.</xsd:documentation>
+			<xsd:documentation>A coherent set of SITE data to which the same frame VALIDITY CONDITIONs have been assigned.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="pointProperty" type="gml:T_pointProperty">
+	<xsd:element name="TimetableFrame" type="TimetableFrame_VersionStructure">
 		<xsd:annotation>
-			<xsd:documentation>This property element either references a point via the XLink-attributes or contains the point element. pointProperty is the predefined property which may be used by GML Application Schemas whenever a GML feature has a property with a value that is substitutable for Point.</xsd:documentation>
+			<xsd:documentation>A coherent set of timetable data (VEHICLE JOURNEYs and BLOCKs) to which the same VALIDITY CONDITIONs have been assigned.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="descriptionReference" type="gml:ReferenceType">
+	<!-- ======================================================================= -->
+	<xsd:element name="CompositeFrame" type="CompositeFrame_VersionStructure">
 		<xsd:annotation>
-			<xsd:documentation>The value of this property is a remote text description of the object. The xlink:href attribute of the gml:descriptionReference property references the external description.</xsd:documentation>
+			<xsd:documentation>A container VERSION FRAME that groups a set of content VERSION FRAMsE to which the same VALIDITY CONDITIONs have been assigned.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="name" type="gml:CodeType">
-		<xsd:annotation>
-			<xsd:documentation>The gml:name property provides a label or identifier for the object, commonly a descriptive name. An object may have several names, typically assigned by different authorities. gml:name uses the gml:CodeType content model.  The authority for a name is indicated by the value of its (optional) codeSpace attribute.  The name may or may not be unique, as determined by the rules of the organization responsible for the codeSpace.  In common usage there will be one name per authority, so a processing application may select the name from its preferred codeSpace.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="identifier" type="gml:CodeWithAuthorityType">
-		<xsd:annotation>
-			<xsd:documentation>Often, a special identifier is assigned to an object by the maintaining authority with the intention that it is used in references to the object For such cases, the codeSpace shall be provided. That identifier is usually unique either globally or within an application domain. gml:identifier is a pre-defined property for such identifiers.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:complexType name="ReferenceType">
-		<xsd:annotation>
-			<xsd:documentation>gml:ReferenceType is intended to be used in application schemas directly, if a property element shall use a "by-reference only" encoding.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:attributeGroup ref="gml:OwnershipAttributeGroup"/>
-		<xsd:attributeGroup ref="gml:AssociationAttributeGroup"/>
-	</xsd:complexType>
-	<xsd:attributeGroup name="OwnershipAttributeGroup">
-		<xsd:annotation>
-			<xsd:documentation>Encoding a GML property inline vs. by-reference shall not imply anything about the "ownership" of the contained or referenced GML Object, i.e. the encoding style shall not imply any "deep-copy" or "deep-delete" semantics. To express ownership over the contained or referenced GML Object, the gml:OwnershipAttributeGroup attribute group may be added to object-valued property elements. If the attribute group is not part of the content model of such a property element, then the value may not be "owned".
-When the value of the owns attribute is "true", the existence of inline or referenced object(s) depends upon the existence of the parent object.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:attribute name="owns" type="xsd:boolean" default="false"/>
-	</xsd:attributeGroup>
-	<xsd:attributeGroup name="AssociationAttributeGroup">
-		<xsd:annotation>
-			<xsd:documentation>XLink components are the standard method to support hypertext referencing in XML. An XML Schema attribute group, gml:AssociationAttributeGroup, is provided to support the use of Xlinks as the method for indicating the value of a property by reference in a uniform manner in GML.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:attribute name="nilReason" type="gml:NilReasonType"/>
-	</xsd:attributeGroup>
-	<xsd:complexType name="CodeType">
-		<xsd:annotation>
-			<xsd:documentation>gml:CodeType is a generalized type to be used for a term, keyword or name.
-It adds a XML attribute codeSpace to a term, where the value of the codeSpace attribute (if present) shall indicate a dictionary, thesaurus, classification scheme, authority, or pattern for the term.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:simpleContent>
-			<xsd:extension base="xsd:string">
-				<xsd:attribute name="codeSpace" type="xsd:anyURI"/>
-			</xsd:extension>
-		</xsd:simpleContent>
-	</xsd:complexType>
-	<xsd:complexType name="CodeWithAuthorityType">
-		<xsd:annotation>
-			<xsd:documentation>gml:CodeWithAuthorityType requires that the codeSpace attribute is provided in an instance.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:simpleContent>
-			<xsd:restriction base="gml:CodeType">
-				<xsd:attribute name="codeSpace" type="xsd:anyURI" use="required"/>
-			</xsd:restriction>
-		</xsd:simpleContent>
-	</xsd:complexType>
-	<xsd:group name="StandardObjectProperties">
+	<xsd:element name="dataObjects" type="dataObjectsStructure"/>
+	<xsd:element name="frames" type="frames_RelStructure"/>
+	<xsd:complexType name="CompositeFrame_VersionStructure">
 		<xsd:sequence>
-			<xsd:element ref="gml:descriptionReference" minOccurs="0"/>
-			<xsd:element ref="gml:identifier" minOccurs="0"/>
-			<xsd:element ref="gml:name" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:group ref="VersionFrameGroup" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="frames" minOccurs="0"/>
 		</xsd:sequence>
-	</xsd:group>
-	<xsd:simpleType name="NilReasonType">
-		<xsd:annotation>
-			<xsd:documentation>gml:NilReasonType defines a content model that allows recording of an explanation for a void value or other exception.
-gml:NilReasonType is a union of the following enumerated values:
--	inapplicable there is no value
--	missing the correct value is not readily available to the sender of this data. Furthermore, a correct value may not exist
--	template the value will be available later
--	unknown the correct value is not known to, and not computable by, the sender of this data. However, a correct value probably exists
--	withheld the value is not divulged
--	other:text other brief explanation, where text is a string of two or more characters with no included spaces
-and
--	anyURI which should refer to a resource which describes the reason for the exception
-A particular community may choose to assign more detailed semantics to the standard values provided. Alternatively, the URI method enables a specific or more complete explanation for the absence of a value to be provided elsewhere and indicated by-reference in an instance document.
-gml:NilReasonType is used as a member of a union in a number of simple content types where it is necessary to permit a value from the NilReasonType union as an alternative to the primary type.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:union memberTypes="gml:NilReasonEnumeration xsd:anyURI"/>
-	</xsd:simpleType>
-	<xsd:simpleType name="NilReasonEnumeration">
-		<xsd:union>
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:enumeration value="inapplicable"/>
-					<xsd:enumeration value="missing"/>
-					<xsd:enumeration value="template"/>
-					<xsd:enumeration value="unknown"/>
-					<xsd:enumeration value="withheld"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:pattern value="other:\w{2,}"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:union>
-	</xsd:simpleType>
-	<xsd:attributeGroup name="BaseAttributesGroup">
-		<xsd:attribute name="id" type="xsd:string" use="required" form="qualified"/>
-		<xsd:attribute name="srsName" type="xsd:anyURI" use="optional"/>
-		<xsd:attribute name="srsDimension" type="xsd:positiveInteger" use="optional"/>
-	</xsd:attributeGroup>
-	<xsd:complexType name="T_LineString">
+		<xsd:attributeGroup ref="DataManagedObjectAttributeGroup"/>
+	</xsd:complexType>
+	<xsd:complexType name="PublicationDeliveryStructure">
 		<xsd:sequence>
-			<xsd:group ref="StandardObjectProperties"/>
-			<xsd:choice>
-				<xsd:choice minOccurs="2" maxOccurs="unbounded">
-					<xsd:element ref="gml:pos"/>
-					<xsd:element ref="gml:pointProperty"/>
-				</xsd:choice>
-				<xsd:element ref="gml:posList"/>
-			</xsd:choice>
+			<xsd:element ref="PublicationTimestamp"/>
+			<xsd:element ref="ParticipantRef"/>
+			<xsd:element name="PublicationRequest" type="PublicationRequestStructure" minOccurs="0"/>
+			<xsd:element ref="Description" minOccurs="0"/>
+			<xsd:element ref="dataObjects" minOccurs="0"/>
 		</xsd:sequence>
-		<xsd:attributeGroup ref="BaseAttributesGroup"/>
+		<xsd:attribute name="version" type="xsd:NMTOKEN" default="1.0"/>
 	</xsd:complexType>
-	<xsd:complexType name="T_pos">
-		<xsd:simpleContent>
-			<xsd:extension base="xsd:string">
-				<xsd:attribute name="srsName" type="xsd:anyURI"/>
-				<xsd:attribute name="srsDimension" type="xsd:positiveInteger"/>
-			</xsd:extension>
-		</xsd:simpleContent>
-	</xsd:complexType>
-	<xsd:complexType name="T_posList">
-		<xsd:simpleContent>
-			<xsd:extension base="xsd:string">
-				<xsd:attribute name="srsName" type="xsd:anyURI"/>
-				<xsd:attribute name="srsDimension" type="xsd:positiveInteger"/>
-				<xsd:attribute name="count" type="xsd:positiveInteger"/>
-			</xsd:extension>
-		</xsd:simpleContent>
-	</xsd:complexType>
-	<xsd:complexType name="T_LinearRing">
-		<xsd:choice>
-			<xsd:choice minOccurs="4" maxOccurs="unbounded">
-				<xsd:element ref="gml:pos"/>
-				<xsd:element ref="gml:pointProperty"/>
-			</xsd:choice>
-			<xsd:element ref="gml:posList"/>
+	<xsd:complexType name="dataObjectsStructure">
+		<xsd:annotation>
+			<xsd:documentation>Type for a list of objects.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:choice maxOccurs="unbounded">
+			<xsd:element ref="CompositeFrame" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>EPIP: Shall contain only specific frames of type
+‘EU_PI_COMMON’, ‘EU_PI_STOP,’
+‘EU_PI_CALENDAR’, ‘EU_PI_NETWORK’ and
+‘EU_PI_TIMETABLE ‘.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="ResourceFrame"/>
+			<xsd:element ref="ServiceCalendarFrame"/>
+			<xsd:element ref="SiteFrame"/>
+			<xsd:element ref="ServiceFrame"/>
+			<xsd:element ref="TimetableFrame"/>
 		</xsd:choice>
 	</xsd:complexType>
-	<xsd:complexType name="T_descriptionReference">
-		<xsd:attribute name="owns" type="xsd:boolean" use="required"/>
-		<xsd:attribute name="nilReason" type="xsd:string" use="required"/>
-	</xsd:complexType>
-	<xsd:complexType name="T_identifier">
-		<xsd:simpleContent>
-			<xsd:extension base="xsd:string">
-				<xsd:attribute name="codeSpace" type="xsd:anyURI" use="required"/>
-			</xsd:extension>
-		</xsd:simpleContent>
-	</xsd:complexType>
-	<xsd:complexType name="T_name">
-		<xsd:simpleContent>
-			<xsd:extension base="xsd:string">
-				<xsd:attribute name="codeSpace" type="xsd:anyURI" use="required"/>
-			</xsd:extension>
-		</xsd:simpleContent>
-	</xsd:complexType>
-	<xsd:complexType name="T_Polygon">
-		<xsd:sequence>
-			<xsd:group ref="StandardObjectProperties"/>
-			<xsd:sequence>
-				<xsd:element ref="gml:exterior" minOccurs="0"/>
-				<xsd:element ref="gml:interior" minOccurs="0" maxOccurs="unbounded"/>
-			</xsd:sequence>
-		</xsd:sequence>
-		<xsd:attributeGroup ref="BaseAttributesGroup"/>
-	</xsd:complexType>
-	<xsd:complexType name="T_exterior">
-		<xsd:sequence>
-			<xsd:element ref="gml:LinearRing"/>
-		</xsd:sequence>
-	</xsd:complexType>
-	<xsd:complexType name="T_interior">
-		<xsd:sequence>
-			<xsd:element ref="gml:LinearRing"/>
-		</xsd:sequence>
-	</xsd:complexType>
-	<xsd:complexType name="T_Point">
-		<xsd:sequence>
-			<xsd:group ref="StandardObjectProperties"/>
-			<xsd:element ref="gml:pos"/>
-		</xsd:sequence>
-		<xsd:attributeGroup ref="BaseAttributesGroup"/>
-	</xsd:complexType>
-	<xsd:complexType name="T_pointProperty">
-		<xsd:sequence>
-			<xsd:element ref="gml:Point"/>
-		</xsd:sequence>
-		<xsd:attribute name="nilReason" type="NilReasonType"/>
-		<xsd:attribute name="owns" type="xsd:boolean" default="false"/>
+	<xsd:complexType name="frames_RelStructure">
+		<xsd:choice maxOccurs="unbounded">
+			<xsd:element ref="ResourceFrame"/>
+			<xsd:element ref="ServiceCalendarFrame"/>
+			<xsd:element ref="SiteFrame"/>
+			<xsd:element ref="ServiceFrame"/>
+			<xsd:element ref="TimetableFrame"/>
+		</xsd:choice>
+		<xsd:attributeGroup ref="ModificationSetAttributeGroup"/>
 	</xsd:complexType>
 </xsd:schema>
