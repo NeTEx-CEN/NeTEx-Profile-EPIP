@@ -17,4 +17,4 @@ XSD File Name                          | Description
 **`gml_combo_v3_2_1_simplified.xsd`**        | A simplified version of the GML 3.2.1 schema, removing optional elements and constraints for easier use.
 
 
-A graphic interactive technical presentation is available here https://data4pt.org/wiki/NeTEX#NeTEx_EPIP.
+A graphic interactive technical presentation is available [here](https://github.com/ITxPT/NeTEx-Profile-EPIP/wiki/Graphic-Interactive-Technical-Presentation).
