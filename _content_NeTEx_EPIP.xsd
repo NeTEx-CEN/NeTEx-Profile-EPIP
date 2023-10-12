@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2021 (x64) (http://www.altova.com) by Hogia Public Transport Systems AB (Hogia Public Transport Systems AB) -->
 <!--Note that this simplified XSD does not in any way replace the full NeTEx XSD. It is not guaranteed that the XSD is free from errors.-->
-<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" version="1.1.1" id="content_NeTEx_EPIP">
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" version="1.1.2" id="content_NeTEx_EPIP">
 	<xsd:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="gml_combo_v3_2_1_simplified.xsd"/>
 	<xsd:annotation>
 		<xsd:documentation>The intention of this XSD is to provide a simplified schema that represents a subset of the full NeTEx-schema covering the European Passenger Information Profile.
@@ -12,6 +12,7 @@
 		Any such copyrights still apply.	
 		
 		Update v1.1.1: vehicleTypes added to ResourceFrame
+		Update v1.1.2: Levels in levels_RelStructure corrected to be unbounded
 </xsd:documentation>
 	</xsd:annotation>
 	<xsd:attributeGroup name="EntityAttributeGroup">
@@ -4232,7 +4233,7 @@ start and end SCHEDULED STOP POINT. (NB A given stop may be visited only once wi
 	</xsd:complexType>
 	<xsd:complexType name="levels_RelStructure">
 		<xsd:sequence>
-			<xsd:element ref="Level"/>
+			<xsd:element ref="Level" maxOccurs="unbounded"/>
 		</xsd:sequence>
 		<xsd:attributeGroup ref="ModificationSetAttributeGroup"/>
 	</xsd:complexType>
