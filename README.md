@@ -4,7 +4,10 @@ This tool aims to enable datasets validation against this minimum EU profile whi
 
 ## XSDs
 
+This repository contains the XSD files for the NeTEx European Passenger Information Profile (EPIP). The EPIP is a subset of the full NeTEx schema that covers the most important data elements for providing passenger information, such as stop locations, routes, timetables, and fares.
+
 The following XSD files are available in this repository:
+
 
 XSD File Name                          | Description
 --------------------------------------|-------------------------------------------------------------
