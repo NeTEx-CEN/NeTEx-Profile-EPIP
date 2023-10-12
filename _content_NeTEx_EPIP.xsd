@@ -6119,9 +6119,9 @@ more focused on translations).</xsd:documentation>
 			<xsd:element ref="PassengerCommsFacilityList" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:group>
-	<!-- ======================================================================= -->
-	<!-- ======================================================================= -->
-	<!-- =====================================Flexible================================== -->
+	<!-- ====================================================================== -->
+	<!-- ====================================================================== -->
+	<!-- =====================================Flexible================================= -->
 	<xsd:group name="BookingArrangementsGroup">
 		<xsd:annotation>
 			<xsd:documentation>Elements for BOOKING ARRANGEMENTs.</xsd:documentation>
